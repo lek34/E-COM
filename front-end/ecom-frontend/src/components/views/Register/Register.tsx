@@ -21,7 +21,6 @@ const Register = () => {
     errors,
     isPendingRegister,
   } = useRegister();
-  console.log("Errors:", errors);
   return (
     <div className="gap:10 flex w-full flex-col items-center justify-center">
       <Image
