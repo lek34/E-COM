@@ -31,7 +31,7 @@ const Register = () => {
       <Card>
         <CardBody className="p-8">
           <h2 className="text-xl font-bold text-red-600">Sign Up</h2>
-          <p className="mb-4 text-small">
+          <p className="mb-4 mt-2 text-small">
             Have an account? &nbsp;
             <Link href="/auth/login" className="font-semibold text-red-500">
               Login here

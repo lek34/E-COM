@@ -1,5 +1,8 @@
 import { Button } from "@nextui-org/react";
 import PageHead from "@/components/commons/PageHead";
+import { getSession, useSession } from "next-auth/react";
+import Nextauth from "./api/auth/[...nextauth]";
+import { SessionExtended } from "@/types/Auth";
 
 export default function Home() {
   return (
