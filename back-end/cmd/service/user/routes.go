@@ -4,6 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/lek34/E-COM/cmd/types"
+	"github.com/lek34/E-COM/cmd/utils"
 )
 
 type Handler struct {
@@ -23,5 +25,8 @@ func (h *Handler) handlelogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) handleregister(w http.ResponseWriter, r *http.Request) {
-
+	var payload types.RegisterUserPayload
+	if err := utils.ParseJSON(r, payload); err != nil {
+		utils.WriteError(w, http.StatusBadRequest, err)
+	}
 }
