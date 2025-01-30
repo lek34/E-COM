@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/jovinkendrico/futurefarmerapi/config"
-	"github.com/jovinkendrico/futurefarmerapi/helper"
+	"github.com/lek34/E-COM/config"
+	"github.com/lek34/E-COM/helper"
 )
 
 func JWTMiddleware(next http.Handler) http.Handler {
