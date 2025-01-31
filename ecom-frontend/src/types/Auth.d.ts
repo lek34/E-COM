@@ -2,14 +2,14 @@ import { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
 interface IRegister {
+  nama: string;
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 interface ILogin {
-  identifier: string;
+  email: string;
   password: string;
 }
 

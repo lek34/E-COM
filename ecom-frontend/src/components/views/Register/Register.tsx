@@ -43,6 +43,22 @@ const Register = () => {
             onSubmit={handleSubmit(handleRegister)}
           >
             <Controller
+              name="nama"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  type="text"
+                  label="Fullname"
+                  variant="bordered"
+                  radius="lg"
+                  autoComplete="off"
+                  isInvalid={errors.nama !== undefined}
+                  errorMessage={errors.nama?.message}
+                />
+              )}
+            />
+            <Controller
               name="username"
               control={control}
               render={({ field }) => (

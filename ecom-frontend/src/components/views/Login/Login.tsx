@@ -10,7 +10,7 @@ import Link from "next/link";
 import useLogin from "./useLogin";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Controller } from "react-hook-form";
-import GoogleSignInButton from "@/components/commons/UI";
+import GoogleSignInButton from "@/components/commons/UI/GoogleButton";
 import { FiUser } from "react-icons/fi";
 import { RiLock2Line } from "react-icons/ri";
 

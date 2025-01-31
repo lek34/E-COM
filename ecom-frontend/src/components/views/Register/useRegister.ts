@@ -7,32 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 import { IRegister } from "@/types/Auth";
 import authServices from "@/services/auth.service";
 
-// const registerSchema = yup.object().shape({
-//   username: yup.string().required("Please input your username"),
-//   email: yup
-//     .string()
-//     .email("Email format invalid")
-//     .required("Please input your email"),
-//   password: yup
-//     .string()
-//     .min(8, "Minimal 8 characters")
-//     .required("Please input your password")
-//     .test(
-//       "at-least-one-uppercase-letter",
-//       "Contain at least one uppercase letter",
-//       (value) => {
-//         if (!value) return false;
-//         const regex = /^(?=.*[A-Z])/;
-//         return regex.test(value);
-//       },
-//     ),
-//   confirmPassword: yup
-//     .string()
-//     .oneOf([yup.ref("password"), ""], "Password not match")
-//     .required("Please input password confirmation"),
-// });
 const registerSchema = yup.object().shape({
-  fullName: yup.string().required("Please input your fullname"),
+  nama: yup.string().required("Please input your fullname"),
   username: yup.string().required("Please input your username"),
   email: yup
     .string()
@@ -40,22 +16,22 @@ const registerSchema = yup.object().shape({
     .required("Please input your email"),
   password: yup
     .string()
-    .min(6, "Minimal 6 Characters")
-    .required("Please input your password")
-    .test(
-      "at-least-one-uppercase-letter",
-      "Contain at least one uppercase letter",
-      (value) => {
-        if (!value) return false;
-        const regex = /^(?=.*[A-Z])/;
-        return regex.test(value);
-      },
-    )
-    .test("at-least-one-number", "Contain at least one number", (value) => {
-      if (!value) return false;
-      const regex = /^(?=.*\d)/;
-      return regex.test(value);
-    }),
+    // .min(6, "Minimal 6 Characters")
+    .required("Please input your password"),
+  // .test(
+  //   "at-least-one-uppercase-letter",
+  //   "Contain at least one uppercase letter",
+  //   (value) => {
+  //     if (!value) return false;
+  //     const regex = /^(?=.*[A-Z])/;
+  //     return regex.test(value);
+  //   },
+  // )
+  // .test("at-least-one-number", "Contain at least one number", (value) => {
+  //   if (!value) return false;
+  //   const regex = /^(?=.*\d)/;
+  //   return regex.test(value);
+  // })
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), ""], "Password not match")
@@ -100,7 +76,7 @@ const useRegister = () => {
       });
     },
     onSuccess: () => {
-      router.push("/auth/register/success");
+      router.push("/auth/login");
       reset();
     },
   });
