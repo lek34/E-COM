@@ -27,10 +27,10 @@ func ConnectDatabase() {
 	createDatabaseIfNotExists(db, "ecom")
 
 	// Connect to the `futurefarmerapi` database
-	dsn = os.Getenv("DB_USERNAME") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/futurefarmerapi?parseTime=true"
+	dsn = os.Getenv("DB_USERNAME") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/ecom?parseTime=true"
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect to futurefarmerapi database")
+		panic("failed to connect to ecom database")
 	}
 
 	// Perform auto migrations
