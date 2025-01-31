@@ -24,7 +24,7 @@ func ConnectDatabase() {
 	}
 
 	// Check if the database exists, and create it if it doesn't
-	createDatabaseIfNotExists(db, "e-commerce")
+	createDatabaseIfNotExists(db, "ecom")
 
 	// Connect to the `futurefarmerapi` database
 	dsn = os.Getenv("DB_USERNAME") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/futurefarmerapi?parseTime=true"

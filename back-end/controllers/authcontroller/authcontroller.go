@@ -53,7 +53,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	tokenAlgo := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	token, err := tokenAlgo.SignedString(config.JWT_KEY)
 	if err != nil {
-		response := map[string]string{"error": "true", "message": err.Error()}
+		response := map[string]interface{}{
+			"status":  http.StatusInternalServerError,
+			"error":   true,
+			"message": err.Error(),
+		}
 		helper.ResponseJSON(w, http.StatusInternalServerError, response)
 		return
 	}
@@ -62,9 +66,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		Path:  "/",
 		Value: token,
 	})
-	response := map[string]string{"error": "false", "message": "login berhasil", "token": token}
+	response := map[string]interface{}{
+		"status":  http.StatusOK,
+		"error":   false,
+		"message": "success",
+		"token":   token,
+	}
 	helper.ResponseJSON(w, http.StatusOK, response)
-
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -83,12 +91,20 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	userInput.Password = string(hashPassword)
 
 	if err := models.DB.Create(&userInput).Error; err != nil {
-		response := map[string]string{"error": "true", "message": err.Error()}
+		response := map[string]interface{}{
+			"status":  http.StatusInternalServerError,
+			"error":   true,
+			"message": err.Error(),
+		}
 		helper.ResponseJSON(w, http.StatusInternalServerError, response)
 		return
 	}
 
-	response := map[string]string{"error": "false", "message": "success"}
+	response := map[string]interface{}{
+		"status":  http.StatusOK,
+		"error":   false,
+		"message": "success",
+	}
 	helper.ResponseJSON(w, http.StatusOK, response)
 }
 
@@ -100,6 +116,10 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		MaxAge:   -1,
 	})
-	response := map[string]string{"error": "false", "message": "logout berhasil"}
+	response := map[string]interface{}{
+		"status":  http.StatusOK,
+		"error":   false,
+		"message": "success",
+	}
 	helper.ResponseJSON(w, http.StatusOK, response)
 }

@@ -2,12 +2,12 @@ module github.com/lek34/E-COM
 
 go 1.22.3
 
-require gorm.io/gorm v1.25.10
-
 require (
-	github.com/go-sql-driver/mysql v1.7.0 // indirect
-	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/jovinkendrico/futurefarmerapi v0.0.0-20240830133948-b30560fadb92
+	gorm.io/gorm v1.25.10
 )
+
+require github.com/go-sql-driver/mysql v1.7.0 // indirect
 
 require (
 	github.com/golang-jwt/jwt/v4 v4.5.0

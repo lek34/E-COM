@@ -25,10 +25,10 @@ func main() {
 	//login logic
 	r.HandleFunc("/login", authcontroller.Login).Methods("POST")
 	r.HandleFunc("/register", authcontroller.Register).Methods("POST")
-
+	r.HandleFunc("/logout", authcontroller.Logout).Methods("GET")
 	// //ANDROID API
 	api := r.PathPrefix("/api").Subrouter()
-	api.HandleFunc("/v1/logout", authcontroller.Logout).Methods("GET")
+	// api.HandleFunc("/v1/logout", authcontroller.Logout).Methods("GET")
 	// api.HandleFunc("/v1/dashboard", dashboardcontroller.Index).Methods("GET")
 
 	// //Relay config
