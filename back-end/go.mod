@@ -2,7 +2,10 @@ module github.com/lek34/E-COM
 
 go 1.22.3
 
-require github.com/go-sql-driver/mysql v1.7.0 // indirect
+require (
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/rs/cors v1.11.1 // indirect
+)
 
 require gorm.io/gorm v1.25.7
 
