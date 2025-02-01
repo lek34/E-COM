@@ -38,6 +38,7 @@ func main() {
 	r.HandleFunc("/login", authcontroller.Login).Methods("POST")
 	r.HandleFunc("/register", authcontroller.Register).Methods("POST")
 	r.HandleFunc("/logout", authcontroller.Logout).Methods("GET")
+	r.HandleFunc("/user/{id}", authcontroller.Getuserdata).Methods("GET")
 
 	// API Routes
 	api := r.PathPrefix("/api").Subrouter()

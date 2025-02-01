@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/gorilla/mux"
 	"github.com/lek34/E-COM/config"
 	"github.com/lek34/E-COM/helper"
 	"github.com/lek34/E-COM/models"
@@ -120,6 +121,28 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		"status":  http.StatusOK,
 		"error":   false,
 		"message": "success",
+	}
+	helper.ResponseJSON(w, http.StatusOK, response)
+}
+
+func Getuserdata(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	userId := vars["id"]
+	var user models.User
+	if err := models.DB.Where("id = ?", userId).First(&user).Error; err != nil {
+		response := map[string]interface{}{
+			"status":  http.StatusInternalServerError,
+			"error":   true,
+			"message": err.Error(),
+		}
+		helper.ResponseJSON(w, http.StatusInternalServerError, response)
+		return
+	}
+	response := map[string]interface{}{
+		"status":  http.StatusOK,
+		"error":   false,
+		"message": "success",
+		"data":    user,
 	}
 	helper.ResponseJSON(w, http.StatusOK, response)
 }
