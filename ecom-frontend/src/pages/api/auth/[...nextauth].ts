@@ -20,22 +20,22 @@ export default NextAuth({
       id: "credentials",
       name: "credentials",
       credentials: {
-        identifier: { label: "identifier", type: "text" },
+        email: { label: "email", type: "text" },
         password: { label: "password", type: "password" },
       },
       async authorize(
-        credentials: Record<"identifier" | "password", string> | undefined,
+        credentials: Record<"email" | "password", string> | undefined,
       ): Promise<UserExtended | null> {
-        const { identifier, password } = credentials as {
-          identifier: string;
+        const { email, password } = credentials as {
+          email: string;
           password: string;
         };
         const result = await authServices.login({
-          identifier,
+          email,
           password,
         });
 
-        const accessToken = result.data.data;
+        const accessToken = result.data.token;
 
         const me = await authServices.getProfileWithToken(accessToken);
         const user = me.data.data;
@@ -43,7 +43,7 @@ export default NextAuth({
         if (
           accessToken &&
           result.status === 200 &&
-          user._id &&
+          user.id &&
           me.status === 200
         ) {
           user.accessToken = accessToken;
