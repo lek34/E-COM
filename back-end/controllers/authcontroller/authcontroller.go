@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/gorilla/mux"
 	"github.com/lek34/E-COM/config"
 	"github.com/lek34/E-COM/helper"
 	"github.com/lek34/E-COM/models"
@@ -125,24 +124,63 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	helper.ResponseJSON(w, http.StatusOK, response)
 }
 
-func Getuserdata(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userId := vars["id"]
+func GetUserData(w http.ResponseWriter, r *http.Request) {
+	// Get the token from the Authorization header
+	tokenString := r.Header.Get("Authorization")
+
+	// Check if token exists
+	if tokenString == "" {
+		response := map[string]string{"error": "true", "message": "Token missing"}
+		helper.ResponseJSON(w, http.StatusUnauthorized, response)
+		return
+	}
+
+	// Remove "Bearer " prefix if present
+	if len(tokenString) > 7 && tokenString[:7] == "Bearer " {
+		tokenString = tokenString[7:]
+	}
+
+	// Parse token
+	token, err := jwt.ParseWithClaims(tokenString, &config.JWTClaim{}, func(token *jwt.Token) (interface{}, error) {
+		return config.JWT_KEY, nil
+	})
+
+	if err != nil {
+		response := map[string]string{"error": "true", "message": "Invalid token"}
+		helper.ResponseJSON(w, http.StatusUnauthorized, response)
+		return
+	}
+
+	// Extract claims
+	claims, ok := token.Claims.(*config.JWTClaim)
+	if !ok || !token.Valid {
+		response := map[string]string{"error": "true", "message": "Invalid token claims"}
+		helper.ResponseJSON(w, http.StatusUnauthorized, response)
+		return
+	}
+
+	// Fetch user from database
 	var user models.User
-	if err := models.DB.Where("id = ?", userId).First(&user).Error; err != nil {
-		response := map[string]interface{}{
-			"status":  http.StatusInternalServerError,
-			"error":   true,
-			"message": err.Error(),
+	if err := models.DB.Where("username = ?", claims.Username).First(&user).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			response := map[string]string{"error": "true", "message": "User not found"}
+			helper.ResponseJSON(w, http.StatusNotFound, response)
+			return
 		}
+		response := map[string]string{"error": "true", "message": err.Error()}
 		helper.ResponseJSON(w, http.StatusInternalServerError, response)
 		return
 	}
+
+	// Return user data
 	response := map[string]interface{}{
-		"status":  http.StatusOK,
-		"error":   false,
-		"message": "success",
-		"data":    user,
+		"status": http.StatusOK,
+		"error":  false,
+		"data": map[string]interface{}{
+			"id":       user.Id,
+			"username": user.Username,
+			"email":    user.Email,
+		},
 	}
 	helper.ResponseJSON(w, http.StatusOK, response)
 }
