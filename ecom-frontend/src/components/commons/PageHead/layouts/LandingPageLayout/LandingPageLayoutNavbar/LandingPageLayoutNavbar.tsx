@@ -29,7 +29,7 @@ const LandingPageLayoutNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <div className="bg-red-600">
+    <div className="fixed z-50 w-full bg-red-600">
       <div className="block lg:hidden">
         <LandingPageLayoutNavbarMobile
           isMenuOpen={isMenuOpen}
@@ -42,7 +42,7 @@ const LandingPageLayoutNavbar = () => {
         maxWidth="full"
         position="static"
         onMenuOpenChange={setIsMenuOpen}
-        shouldHideOnScroll
+        // shouldHideOnScroll
       >
         <Image
           className="hidden cursor-pointer lg:flex"

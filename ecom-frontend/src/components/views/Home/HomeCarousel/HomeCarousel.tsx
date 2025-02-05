@@ -13,14 +13,14 @@ import {
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
 interface PropTypes {
-  isLoading: boolean;
+  isCarouselLoading: boolean;
 }
 
 const HomeCarousel = (props: PropTypes) => {
-  const { isLoading } = props;
+  const { isCarouselLoading } = props;
   return (
-    <div className="h-[25vw] lg:mx-0 lg:mb-16 lg:h-[20vw]">
-      {!isLoading ? (
+    <div className="mb-4 h-[25vw] lg:mx-0 lg:mb-16 lg:h-[20vw]">
+      {!isCarouselLoading ? (
         <Swiper
           pagination={{
             dynamicBullets: true,
@@ -66,10 +66,10 @@ const HomeCarousel = (props: PropTypes) => {
               width={1920}
             />
           </SwiperSlide>
-          <div className="custom-next absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/25 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="custom-next absolute right-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/25 p-2 text-white opacity-0 transition-opacity hover:bg-gray-800/50 group-hover:opacity-100">
             <MdOutlineKeyboardArrowRight className="text-3xl" />
           </div>
-          <div className="custom-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/25 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="custom-prev absolute left-4 top-1/2 z-10 -translate-y-1/2 transform cursor-pointer rounded-full bg-gray-800/25 p-2 text-white opacity-0 transition-opacity hover:bg-gray-800/50 group-hover:opacity-100">
             <MdOutlineKeyboardArrowLeft className="text-3xl" />
           </div>
         </Swiper>

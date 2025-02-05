@@ -14,7 +14,7 @@ const LandingPageLayout = (props: PropTypes) => {
     <div>
       <PageHead title={title} />
       <LandingPageLayoutNavbar />
-      <div className="max-w-screen-3xl 3xl:container justify-center py-10 lg:px-32">
+      <div className="max-w-screen-3xl 3xl:container justify-center py-10 pt-24 lg:px-32">
         {children}
       </div>
       <LandingPageLayoutFooter />
